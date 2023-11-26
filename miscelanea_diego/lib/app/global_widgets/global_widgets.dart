@@ -31,6 +31,20 @@ class GlobalWidgets {
     );
   }
 
+  static AppBar regresarEditarAppBar(
+      BuildContext context, String title, VoidCallback onPress) {
+    return AppBar(
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+      title: Text(title),
+      actions: [IconButton(onPressed: onPress, icon: const Icon(Icons.delete))],
+    );
+  }
+
   static AlertDialog mensajeError(
       String text, String title, BuildContext context) {
     return AlertDialog(
@@ -53,5 +67,37 @@ class GlobalWidgets {
         ),
       ],
     );
+  }
+
+  static Future<bool> mesajeConfirmar(
+      String title, String text, BuildContext context) async {
+    bool opcion = false;
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Row(children: [
+              const Icon(Icons.warning),
+              const SizedBox(width: 10),
+              Text(title)
+            ]),
+            content: Text(text),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    opcion = false;
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Cancelar')),
+              FilledButton(
+                  onPressed: () {
+                    opcion = true;
+                    Navigator.of(context).pop(true);
+                  },
+                  child: const Text('Aceptar'))
+            ],
+          );
+        });
+    return opcion;
   }
 }

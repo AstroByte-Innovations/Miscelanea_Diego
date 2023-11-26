@@ -12,4 +12,12 @@ class UsuariosController {
   void agregarUsuario(Usuario usuario) {
     modelo.agregarUsuario(usuario);
   }
+
+  void editarUsuario(Usuario usuario, int key) {
+    modelo.actualizarUsuario(key, usuario);
+  }
+
+  void eliminarUsuario(int key) {
+    modelo.eliminarUsuario(key);
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/global_widgets/global_widgets.dart';
 import 'package:miscelanea_diego/app/global_widgets/menu.dart';
+import 'package:miscelanea_diego/app/screens/usuarios_screen/Widgets/usuario_edit.dart';
 import 'package:miscelanea_diego/app/screens/usuarios_screen/Widgets/usuario_form.dart';
 import 'package:miscelanea_diego/app/screens/usuarios_screen/Widgets/usuario_view.dart';
 import 'package:miscelanea_diego/app/screens/usuarios_screen/usuarios_controller.dart';
@@ -21,7 +22,6 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
 
   Future<void> _cargar() async {
     _usuarios = await controller.cargarUsuarios();
-    print(_usuarios);
     setState(() {});
   }
 
@@ -47,7 +47,18 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
                     itemCount: _usuarios.length,
                     itemBuilder: (context, index) {
                       return UsuarioView(
-                          usuario: _usuarios[index], onPress: () {});
+                          usuario: _usuarios[index],
+                          onPress: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UsuarioEdit(
+                                        user: _usuarios[index]))).then((value) {
+                              if (value != null) {
+                                _cargar();
+                              }
+                            });
+                          });
                     }))
           ]),
           floatingActionButton: FloatingActionButton(
