@@ -30,4 +30,28 @@ class GlobalWidgets {
       title: Text(title),
     );
   }
+
+  static AlertDialog mensajeError(
+      String text, String title, BuildContext context) {
+    return AlertDialog(
+      title: Row(
+        children: [
+          const Icon(Icons.warning),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(title)
+        ],
+      ),
+      content: Text(text),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    );
+  }
 }

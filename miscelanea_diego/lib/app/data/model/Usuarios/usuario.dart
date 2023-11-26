@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:miscelanea_diego/app/data/model/Usuarios/role.dart';
 
 part 'usuario.g.dart';
 
@@ -21,6 +22,9 @@ class Usuario extends HiveObject {
   DateTime? fechaCreacion;
   @HiveField(6)
   DateTime? fechaActualizacion;
+  // permisos
+  @HiveField(7)
+  Role role;
 
   Usuario(
       {required this.nombreUsuario,
@@ -28,6 +32,7 @@ class Usuario extends HiveObject {
       required this.nombre,
       required this.apellidoPaterno,
       required this.apellidoMaterno,
+      required this.role,
       this.fechaCreacion,
       this.fechaActualizacion});
 
@@ -47,6 +52,6 @@ class Usuario extends HiveObject {
 
   @override
   String toString() {
-    return 'Usuario: {nombre: $nombre, pin: $pin}';
+    return 'Usuario: {nombreUsuario: $nombreUsuario,nombre: $nombre,apellidoPaterno: $apellidoPaterno,apellidoMaterno: $apellidoMaterno,fechaCreacion: $fechaCreacion,fechaActualizacion: $fechaActualizacion,role: $role,}';
   }
 }

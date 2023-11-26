@@ -3,7 +3,7 @@ import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 
 part 'auditoria.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 2)
 class Auditoria extends HiveObject {
   @HiveField(0)
   Usuario usuario;

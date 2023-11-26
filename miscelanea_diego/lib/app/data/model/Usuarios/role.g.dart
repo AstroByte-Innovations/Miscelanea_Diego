@@ -1,53 +1,53 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'usuario.dart';
+part of 'role.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class UsuarioAdapter extends TypeAdapter<Usuario> {
+class RoleAdapter extends TypeAdapter<Role> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
-  Usuario read(BinaryReader reader) {
+  Role read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Usuario(
-      nombreUsuario: fields[0] as String,
-      pin: fields[1] as String,
-      nombre: fields[2] as String,
-      apellidoPaterno: fields[3] as String,
-      apellidoMaterno: fields[4] as String?,
-      role: fields[7] as Role,
-      fechaCreacion: fields[5] as DateTime?,
-      fechaActualizacion: fields[6] as DateTime?,
+    return Role(
+      puntoVenta: fields[0] as bool,
+      productos: fields[1] as bool,
+      inventario: fields[2] as bool,
+      reportes: fields[3] as bool,
+      ventas: fields[4] as bool,
+      usuarios: fields[5] as bool,
+      auditoria: fields[6] as bool,
+      configuracion: fields[7] as bool,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Usuario obj) {
+  void write(BinaryWriter writer, Role obj) {
     writer
       ..writeByte(8)
       ..writeByte(0)
-      ..write(obj.nombreUsuario)
+      ..write(obj.puntoVenta)
       ..writeByte(1)
-      ..write(obj.pin)
+      ..write(obj.productos)
       ..writeByte(2)
-      ..write(obj.nombre)
+      ..write(obj.inventario)
       ..writeByte(3)
-      ..write(obj.apellidoPaterno)
+      ..write(obj.reportes)
       ..writeByte(4)
-      ..write(obj.apellidoMaterno)
+      ..write(obj.ventas)
       ..writeByte(5)
-      ..write(obj.fechaCreacion)
+      ..write(obj.usuarios)
       ..writeByte(6)
-      ..write(obj.fechaActualizacion)
+      ..write(obj.auditoria)
       ..writeByte(7)
-      ..write(obj.role);
+      ..write(obj.configuracion);
   }
 
   @override
@@ -56,7 +56,7 @@ class UsuarioAdapter extends TypeAdapter<Usuario> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UsuarioAdapter &&
+      other is RoleAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

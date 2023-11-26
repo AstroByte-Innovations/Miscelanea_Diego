@@ -21,13 +21,14 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
 
   Future<void> _cargar() async {
     _usuarios = await controller.cargarUsuarios();
+    print(_usuarios);
     setState(() {});
   }
 
   @override
   void initState() {
-    super.initState();
     _cargar();
+    super.initState();
   }
 
   @override
@@ -54,7 +55,11 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (c) {
                   return const UsuarioForm();
-                }));
+                })).then((value) {
+                  if (value != null) {
+                    _cargar();
+                  }
+                });
               },
               child: const Icon(Icons.add)),
         ));

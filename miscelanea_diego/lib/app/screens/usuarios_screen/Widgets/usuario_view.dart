@@ -9,19 +9,30 @@ class UsuarioView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-        onPressed: onPress,
-        icon: Container(
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              borderRadius: BorderRadius.circular(5),
-              color: Theme.of(context).colorScheme.background),
-          child: const Icon(
-            Icons.person,
-            size: 25,
-          ),
+      style: const ButtonStyle(alignment: Alignment.bottomLeft),
+      onPressed: onPress,
+      icon: Container(
+        height: 40,
+        width: 40,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Theme.of(context).colorScheme.background,
         ),
-        label: Column(
-          children: [Text(usuario.nombre)],
-        ));
+        child: const Icon(
+          Icons.person,
+          size: 35,
+        ),
+      ),
+      label: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}',
+          ),
+          const SizedBox(width: 10),
+          Text(usuario.nombreUsuario),
+        ],
+      ),
+    );
   }
 }

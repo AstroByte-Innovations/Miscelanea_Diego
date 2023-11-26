@@ -8,4 +8,8 @@ class UsuariosController {
   Future<List<Usuario>> cargarUsuarios() {
     return modelo.obtenerTodosUsuarios();
   }
+
+  void agregarUsuario(Usuario usuario) {
+    modelo.agregarUsuario(usuario);
+  }
 }
