@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDUKwip-xc_ETJzVUAOo0Fr7vK9Vhvnu_E</string>
+	<key>GCM_SENDER_ID</key>
+	<string>606578033552</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.miscelaneaDiego</string>
+	<key>PROJECT_ID</key>
+	<string>miscelanea-diego</string>
+	<key>STORAGE_BUCKET</key>
+	<string>miscelanea-diego.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:606578033552:ios:f1744bf342df64bb676915</string>
+</dict>
+</plist>

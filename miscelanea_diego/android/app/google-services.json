@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "606578033552",
+    "project_id": "miscelanea-diego",
+    "storage_bucket": "miscelanea-diego.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606578033552:android:e5b8b0420e51756c676915",
+        "android_client_info": {
+          "package_name": "com.example.miscelanea_diego"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcAC-rUD9_-R5IbWUdf1DwOCDttypyXWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
