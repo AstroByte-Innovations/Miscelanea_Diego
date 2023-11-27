@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miscelanea_diego/app/data/model/Usuarios/auditoria.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/global_widgets/global_widgets.dart';
 import 'package:miscelanea_diego/app/global_widgets/pin_screen.dart';
@@ -6,7 +7,9 @@ import 'package:miscelanea_diego/app/screens/usuarios_screen/usuarios_controller
 
 class UsuarioEdit extends StatefulWidget {
   final Usuario user;
-  const UsuarioEdit({super.key, required this.user});
+  final Usuario usuarioGlobal;
+  const UsuarioEdit(
+      {super.key, required this.user, required this.usuarioGlobal});
 
   @override
   State<UsuarioEdit> createState() => _UsuarioEditState();
@@ -76,6 +79,13 @@ class _UsuarioEditState extends State<UsuarioEdit> {
         bool accion = await GlobalWidgets.mesajeConfirmar('Eliminar Usuario',
             '¿Esta seguro de que desea eliminar este usuario?', context);
         if (accion) {
+          controller.agregarAuditoria(Auditoria(
+              usuario: widget.usuarioGlobal,
+              tipoRegistro: 'Usuario',
+              accion: 'Eliminacion',
+              fecha: DateTime.now(),
+              registro: widget.user.nombreUsuario,
+              descripcion: widget.user.toString()));
           controller.eliminarUsuario(widget.user.key);
           close();
         }
@@ -108,6 +118,13 @@ class _UsuarioEditState extends State<UsuarioEdit> {
             if (_formKey.currentState!.validate() && pin.isNotEmpty) {
               actualizar();
               controller.editarUsuario(widget.user, widget.user.key);
+              controller.agregarAuditoria(Auditoria(
+                  usuario: widget.usuarioGlobal,
+                  tipoRegistro: 'Usuario',
+                  accion: 'Actualizacion',
+                  fecha: DateTime.now(),
+                  registro: widget.user.nombreUsuario,
+                  descripcion: widget.user.toString()));
               close();
             } else if (pin.isEmpty) {
               showDialog(
@@ -137,6 +154,13 @@ class _UsuarioEditState extends State<UsuarioEdit> {
             } else {
               actualizar();
               controller.editarUsuario(widget.user, widget.user.key);
+              controller.agregarAuditoria(Auditoria(
+                  usuario: widget.usuarioGlobal,
+                  tipoRegistro: 'Usuario',
+                  accion: 'Actualizacion',
+                  fecha: DateTime.now(),
+                  registro: widget.user.nombreUsuario,
+                  descripcion: widget.user.toString()));
               close();
             }
           }

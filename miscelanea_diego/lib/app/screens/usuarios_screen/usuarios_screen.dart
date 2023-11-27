@@ -59,11 +59,12 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
                             usuario: _usuarios[index],
                             onPress: () {
                               Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => UsuarioEdit(
-                                              user: _usuarios[index])))
-                                  .then((value) {
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UsuarioEdit(
+                                            user: _usuarios[index],
+                                            usuarioGlobal: widget.usuario,
+                                          ))).then((value) {
                                 if (value != null) {
                                   _cargar();
                                 }
@@ -76,7 +77,9 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
               shape: const CircleBorder(),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (c) {
-                  return const UsuarioForm();
+                  return UsuarioForm(
+                    usuarioglobal: widget.usuario,
+                  );
                 })).then((value) {
                   if (value != null) {
                     _cargar();

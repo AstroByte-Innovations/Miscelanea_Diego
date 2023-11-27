@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:miscelanea_diego/app/core/theme/app_theme.dart';
+import 'package:miscelanea_diego/app/data/model/Usuarios/auditoria.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/role.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/screens/login/login.dart';
@@ -9,6 +10,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UsuarioAdapter());
   Hive.registerAdapter(RoleAdapter());
+  Hive.registerAdapter(AuditoriaAdapter());
   runApp(const MyApp());
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
+import 'package:miscelanea_diego/app/screens/auditoria_screen/auditoria_screen.dart';
 import 'package:miscelanea_diego/app/screens/login/login.dart';
 import 'package:miscelanea_diego/app/screens/pos_screen/pos_screen.dart';
 import 'package:miscelanea_diego/app/screens/usuarios_screen/usuarios_screen.dart';
@@ -124,7 +125,14 @@ class Menu {
               : Container(),
           (usuario.role.auditoria)
               ? ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (c) {
+                      return AuditoriaScreen(
+                        usuarioGlobal: usuario,
+                      );
+                    }));
+                  },
                   leading: const Icon(Icons.verified,
                       size: 25.0, color: Colors.white),
                   title: const Text("Auditoria"),

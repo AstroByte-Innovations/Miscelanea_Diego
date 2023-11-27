@@ -5,19 +5,24 @@ part 'auditoria.g.dart';
 
 @HiveType(typeId: 2)
 class Auditoria extends HiveObject {
+  //Empleado que realizo
   @HiveField(0)
   Usuario usuario;
   @HiveField(1)
+  //Categoria que realizo
   String tipoRegistro;
   @HiveField(2)
+  // Creo, edito, elimino
   String accion;
   @HiveField(3)
+  //Fecha
   DateTime fecha;
   @HiveField(4)
+  //a quien le hizo el cambio
   String registro;
+  //Cambios
   @HiveField(5)
   String descripcion;
-  @HiveField(6)
   Auditoria(
       {required this.usuario,
       required this.tipoRegistro,
@@ -25,4 +30,8 @@ class Auditoria extends HiveObject {
       required this.fecha,
       required this.registro,
       required this.descripcion});
+  @override
+  String toString() {
+    return 'Auditoria(usuario: $usuario, tipoRegistro: $tipoRegistro, accion: $accion, fecha: $fecha, registro: $registro, descripcion: $descripcion)';
+  }
 }

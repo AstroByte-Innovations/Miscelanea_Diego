@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miscelanea_diego/app/data/model/Usuarios/auditoria.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/role.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/global_widgets/global_widgets.dart';
@@ -6,7 +7,8 @@ import 'package:miscelanea_diego/app/global_widgets/pin_screen.dart';
 import 'package:miscelanea_diego/app/screens/usuarios_screen/usuarios_controller.dart';
 
 class UsuarioForm extends StatefulWidget {
-  const UsuarioForm({super.key});
+  const UsuarioForm({super.key, required this.usuarioglobal});
+  final Usuario usuarioglobal;
 
   @override
   State<UsuarioForm> createState() => _UsuarioFormState();
@@ -82,6 +84,13 @@ class _UsuarioFormState extends State<UsuarioForm> {
                   fechaCreacion: DateTime.now(),
                   fechaActualizacion: DateTime.now());
               controller.agregarUsuario(user);
+              controller.agregarAuditoria(Auditoria(
+                  usuario: widget.usuarioglobal,
+                  tipoRegistro: 'Usuario',
+                  accion: 'Creacion',
+                  fecha: DateTime.now(),
+                  registro: user.nombreUsuario,
+                  descripcion: user.toString()));
               Navigator.of(context).pop(1);
             } else if (pin.isEmpty) {
               showDialog(
@@ -127,6 +136,13 @@ class _UsuarioFormState extends State<UsuarioForm> {
                   fechaCreacion: DateTime.now(),
                   fechaActualizacion: DateTime.now());
               controller.agregarUsuario(user);
+              controller.agregarAuditoria(Auditoria(
+                  usuario: widget.usuarioglobal,
+                  tipoRegistro: 'Usuario',
+                  accion: 'Creacion',
+                  fecha: DateTime.now(),
+                  registro: user.nombreUsuario,
+                  descripcion: user.toString()));
               Navigator.of(context).pop(1);
             }
           }
