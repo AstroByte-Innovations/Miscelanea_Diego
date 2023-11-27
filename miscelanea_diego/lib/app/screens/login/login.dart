@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
+import 'package:miscelanea_diego/app/screens/login/Widgets/login_global.dart';
+import 'package:miscelanea_diego/app/screens/login/Widgets/login_user.dart';
+import 'package:miscelanea_diego/app/screens/login/login_controller.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -8,77 +12,111 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  LoginController controller = LoginController();
+  List<Usuario> _usuarios = [];
+
+  Future<void> _cargar() async {
+    _usuarios = await controller.obtenerUsuarios();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _cargar();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Colors.white,
         body: Column(
           children: [
-            SizedBox(
+            Container(
+              color: Theme.of(context).colorScheme.primary,
               height: MediaQuery.of(context).size.height / 6,
-            ),
-            Expanded(
-                child: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15)),
+              child: const Center(
+                child: Text(
+                  'Bienvenido de vuelta',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-              child: const Column(children: [
-                _UserView(),
-              ]),
-            ))
-          ],
-        ));
-  }
-}
-
-class _Singin extends StatefulWidget {
-  const _Singin();
-
-  @override
-  State<_Singin> createState() => _SinginState();
-}
-
-class _SinginState extends State<_Singin> {
-  final _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
-              decoration: const InputDecoration(
-                  label: Text('Usuario'), border: OutlineInputBorder()),
+            ),
+            Container(
+              height: 20,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20)),
+                ),
+              ),
             ),
             const SizedBox(height: 10),
-            TextFormField(
-              decoration: const InputDecoration(
-                  label: Text('Contraseña'), border: OutlineInputBorder()),
+            const Text(
+              'Seleccione un usuario para iniciar sesión.',
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
             ),
-            const SizedBox(height: 50),
-            FilledButton(
-              onPressed: () {},
-              child: const Text('Ingresar'),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _usuarios.length,
+                itemBuilder: (context, index) {
+                  return _UserView(_usuarios[index]);
+                },
+              ),
             ),
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return const LoginGlobal();
+                  }));
+                },
+                icon: const Icon(
+                  Icons.keyboard,
+                  size: 30,
+                ))
           ],
         ));
   }
 }
 
 class _UserView extends StatelessWidget {
-  const _UserView();
+  final Usuario usuario;
+  const _UserView(this.usuario);
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton.icon(
-        onPressed: () {},
-        icon: const Icon(Icons.person),
-        label: const Text('User 1'));
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: FilledButton.icon(
+          style: const ButtonStyle(alignment: Alignment.bottomLeft),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return LoginUser(usuario: usuario);
+            }));
+          },
+          icon: const Icon(
+            Icons.person,
+            size: 30,
+          ),
+          label: Column(
+            children: [
+              Text(
+                usuario.nombreUsuario,
+                style: const TextStyle(fontSize: 20),
+              ),
+              Text('${usuario.nombre} ${usuario.apellidoPaterno}')
+            ],
+          )),
+    );
   }
 }

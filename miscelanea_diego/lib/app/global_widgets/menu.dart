@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
+import 'package:miscelanea_diego/app/screens/login/login.dart';
 import 'package:miscelanea_diego/app/screens/pos_screen/pos_screen.dart';
 import 'package:miscelanea_diego/app/screens/usuarios_screen/usuarios_screen.dart';
 
 class Menu {
-  static Widget buildMenu(BuildContext context) {
+  static Widget buildMenu(BuildContext context, Usuario usuario) {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(vertical: 50.0),
       child: Column(
@@ -27,9 +29,13 @@ class Menu {
                   ),
                 ),
                 const SizedBox(width: 16.0),
-                const Text(
-                  "Hola, Marcos Falcon",
-                  style: TextStyle(color: Colors.white),
+                SizedBox(
+                  width: 150,
+                  child: Text(
+                    "Hola, ${usuario.nombre}\n${usuario.apellidoPaterno}",
+                    style: const TextStyle(color: Colors.white),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
@@ -37,91 +43,117 @@ class Menu {
           const SizedBox(
             height: 20,
           ),
-          ListTile(
-            onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (c) {
-                return const POSScreen();
-              }));
-            },
-            leading: const Icon(Icons.shopping_cart,
-                size: 25.0, color: Colors.white),
-            title: const Text("Punto de venta"),
-            textColor: Colors.white,
-            dense: true,
-          ),
-          ListTile(
-            onTap: () {},
-            leading:
-                const Icon(Icons.shopping_bag, size: 25.0, color: Colors.white),
-            title: const Text("Productos"),
-            textColor: Colors.white,
-            dense: true,
-          ),
-          ListTile(
-            onTap: () {},
-            leading:
-                const Icon(Icons.inventory, size: 25.0, color: Colors.white),
-            title: const Text("Inventario"),
-            textColor: Colors.white,
-            dense: true,
+          (usuario.role.puntoVenta)
+              ? ListTile(
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (c) {
+                      return POSScreen(
+                        usuario: usuario,
+                      );
+                    }));
+                  },
+                  leading: const Icon(Icons.shopping_cart,
+                      size: 25.0, color: Colors.white),
+                  title: const Text("Punto de venta"),
+                  textColor: Colors.white,
+                  dense: true,
+                )
+              : Container(),
+          (usuario.role.productos)
+              ? ListTile(
+                  onTap: () {},
+                  leading: const Icon(Icons.shopping_bag,
+                      size: 25.0, color: Colors.white),
+                  title: const Text("Productos"),
+                  textColor: Colors.white,
+                  dense: true,
+                )
+              : Container(),
+          (usuario.role.inventario)
+              ? ListTile(
+                  onTap: () {},
+                  leading: const Icon(Icons.inventory,
+                      size: 25.0, color: Colors.white),
+                  title: const Text("Inventario"),
+                  textColor: Colors.white,
+                  dense: true,
+                )
+              : Container(),
+          (usuario.role.reportes)
+              ? ListTile(
+                  onTap: () {},
+                  leading:
+                      const Icon(Icons.edit, size: 25.0, color: Colors.white),
+                  title: const Text("Reportes"),
+                  textColor: Colors.white,
+                  dense: true,
 
-            // padding: EdgeInsets.zero,
-          ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.edit, size: 25.0, color: Colors.white),
-            title: const Text("Reportes"),
-            textColor: Colors.white,
-            dense: true,
+                  // padding: EdgeInsets.zero,
+                )
+              : Container(),
+          (usuario.role.ventas)
+              ? ListTile(
+                  onTap: () {},
+                  leading:
+                      const Icon(Icons.sell, size: 25.0, color: Colors.white),
+                  title: const Text("Ventas"),
+                  textColor: Colors.white,
+                  dense: true,
 
-            // padding: EdgeInsets.zero,
-          ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.sell, size: 25.0, color: Colors.white),
-            title: const Text("Ventas"),
-            textColor: Colors.white,
-            dense: true,
-
-            // padding: EdgeInsets.zero,
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (c) {
-                return const UsuariosScreen();
-              }));
-            },
-            leading: const Icon(Icons.person, size: 25.0, color: Colors.white),
-            title: const Text("Usuarios"),
-            textColor: Colors.white,
-            dense: true,
-            // padding: EdgeInsets.zero,
-          ),
-          ListTile(
-            onTap: () {},
-            leading:
-                const Icon(Icons.verified, size: 25.0, color: Colors.white),
-            title: const Text("Auditoria"),
-            textColor: Colors.white,
-            dense: true,
-            // padding: EdgeInsets.zero,
-          ),
-          ListTile(
-            onTap: () {},
-            leading:
-                const Icon(Icons.settings, size: 25.0, color: Colors.white),
-            title: const Text("Configuracion"),
-            textColor: Colors.white,
-            dense: true,
-            // padding: EdgeInsets.zero,
-          ),
+                  // padding: EdgeInsets.zero,
+                )
+              : Container(),
+          (usuario.role.usuarios)
+              ? ListTile(
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (c) {
+                      return UsuariosScreen(
+                        usuario: usuario,
+                      );
+                    }));
+                  },
+                  leading:
+                      const Icon(Icons.person, size: 25.0, color: Colors.white),
+                  title: const Text("Usuarios"),
+                  textColor: Colors.white,
+                  dense: true,
+                  // padding: EdgeInsets.zero,
+                )
+              : Container(),
+          (usuario.role.auditoria)
+              ? ListTile(
+                  onTap: () {},
+                  leading: const Icon(Icons.verified,
+                      size: 25.0, color: Colors.white),
+                  title: const Text("Auditoria"),
+                  textColor: Colors.white,
+                  dense: true,
+                  // padding: EdgeInsets.zero,
+                )
+              : Container(),
+          (usuario.role.configuracion)
+              ? ListTile(
+                  onTap: () {},
+                  leading: const Icon(Icons.settings,
+                      size: 25.0, color: Colors.white),
+                  title: const Text("Configuracion"),
+                  textColor: Colors.white,
+                  dense: true,
+                  // padding: EdgeInsets.zero,
+                )
+              : Container(),
           const SizedBox(
             height: 30,
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (c) {
+                return const Login();
+              }));
+            },
             leading: const Icon(Icons.logout, size: 30.0, color: Colors.white),
             title: const Text("Cerrar sesion"),
             textColor: Colors.white,

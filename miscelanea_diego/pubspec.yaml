@@ -41,6 +41,7 @@ dependencies:
   pin_code_fields: ^8.0.1
   expandable_menu: ^0.0.5
   pie_menu: ^2.0.2
+  crypto: ^3.0.3
 
 dev_dependencies:
   flutter_test:
