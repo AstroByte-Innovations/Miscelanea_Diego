@@ -3,6 +3,7 @@ import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/screens/auditoria_screen/auditoria_screen.dart';
 import 'package:miscelanea_diego/app/screens/login/login.dart';
 import 'package:miscelanea_diego/app/screens/pos_screen/pos_screen.dart';
+import 'package:miscelanea_diego/app/screens/productos_screen/productos_screen.dart';
 import 'package:miscelanea_diego/app/screens/usuarios_screen/usuarios_screen.dart';
 
 class Menu {
@@ -63,7 +64,14 @@ class Menu {
               : Container(),
           (usuario.role.productos)
               ? ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (c) {
+                      return ProductosScreen(
+                        usuario: usuario,
+                      );
+                    }));
+                  },
                   leading: const Icon(Icons.shopping_bag,
                       size: 25.0, color: Colors.white),
                   title: const Text("Productos"),
