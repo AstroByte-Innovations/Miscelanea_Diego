@@ -42,6 +42,7 @@ dependencies:
   expandable_menu: ^0.0.5
   pie_menu: ^2.0.2
   crypto: ^3.0.3
+  vibration: ^1.8.4
 
 dev_dependencies:
   flutter_test:

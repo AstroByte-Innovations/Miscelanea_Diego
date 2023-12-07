@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:miscelanea_diego/app/data/model/Productos/producto.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/global_widgets/menu.dart';
 import 'package:miscelanea_diego/app/screens/productos_screen/categoria_controller.dart';
 import 'package:miscelanea_diego/app/screens/productos_screen/categoria_screen.dart';
+import 'package:miscelanea_diego/app/screens/productos_screen/productos_controller.dart';
 import 'package:miscelanea_diego/app/screens/productos_screen/widget/producto_form.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 class ProductosScreen extends StatefulWidget {
-  const ProductosScreen({super.key, required this.usuario});
+  const ProductosScreen(
+      {super.key, required this.usuario, required this.controller});
   final Usuario usuario;
+  final ProductoController controller;
 
   @override
   State<ProductosScreen> createState() => _ProductosScreenState();
@@ -16,6 +20,19 @@ class ProductosScreen extends StatefulWidget {
 
 class _ProductosScreenState extends State<ProductosScreen> {
   final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
+  List<Producto> _productos = [];
+
+  Future<void> _cargar() async {
+    _productos = await widget.controller.cargarProductos();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _cargar();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SideMenu(
@@ -52,21 +69,50 @@ class _ProductosScreenState extends State<ProductosScreen> {
             ],
           ),
           body: PopScope(
-            canPop: false,
-            onPopInvoked: (bool didPop) {
-              if (didPop) {
-                return;
-              }
-              _showBackDialog();
-            },
-            child: const Text('data'),
-          ),
+              canPop: false,
+              onPopInvoked: (bool didPop) {
+                if (didPop) {
+                  return;
+                }
+                _showBackDialog();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 8.0,
+                          mainAxisSpacing: 8.0,
+                        ),
+                        itemCount: _productos.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Text(_productos[index].nombre),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )),
           floatingActionButton: FloatingActionButton(
               shape: const CircleBorder(),
               onPressed: () => Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return const ProductoForm();
-                  })),
+                    return ProductoForm(
+                      usuario: widget.usuario,
+                      controller: ProductoController(usuario: widget.usuario),
+                    );
+                  })).then((value) => {if (value != null) _cargar()}),
               child: const Icon(Icons.add)),
         ));
   }

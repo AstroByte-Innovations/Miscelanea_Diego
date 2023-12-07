@@ -4,6 +4,7 @@ import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/global_widgets/global_widgets.dart';
 import 'package:miscelanea_diego/app/global_widgets/pin_screen.dart';
 import 'package:miscelanea_diego/app/screens/usuarios_screen/usuarios_controller.dart';
+import 'package:vibration/vibration.dart';
 
 class UsuarioEdit extends StatefulWidget {
   final Usuario user;
@@ -130,6 +131,7 @@ class _UsuarioEditState extends State<UsuarioEdit> {
               showDialog(
                 context: context,
                 builder: (context) {
+                  Vibration.vibrate(duration: 500);
                   return GlobalWidgets.mensajeError(
                       "Por favor de ingresar un PIN en el apartado de \"Informacion\".",
                       "Precaucion",
@@ -145,6 +147,7 @@ class _UsuarioEditState extends State<UsuarioEdit> {
               showDialog(
                 context: context,
                 builder: (context) {
+                  Vibration.vibrate(duration: 500);
                   return GlobalWidgets.mensajeError(
                       "Por favor de llenar todos los campos en el apartado de \"Informacion\".",
                       "Precaución",

@@ -3,6 +3,7 @@ import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/screens/auditoria_screen/auditoria_screen.dart';
 import 'package:miscelanea_diego/app/screens/login/login.dart';
 import 'package:miscelanea_diego/app/screens/pos_screen/pos_screen.dart';
+import 'package:miscelanea_diego/app/screens/productos_screen/productos_controller.dart';
 import 'package:miscelanea_diego/app/screens/productos_screen/productos_screen.dart';
 import 'package:miscelanea_diego/app/screens/usuarios_screen/usuarios_screen.dart';
 
@@ -69,6 +70,7 @@ class Menu {
                         MaterialPageRoute(builder: (c) {
                       return ProductosScreen(
                         usuario: usuario,
+                        controller: ProductoController(usuario: usuario),
                       );
                     }));
                   },

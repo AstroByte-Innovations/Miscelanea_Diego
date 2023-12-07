@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:miscelanea_diego/app/data/model/Productos/producto.dart';
 
-class CategoriaModel {
+class ProductoModel {
   Future<void> agregarProducto(Producto producto) async {
     final productosBox = await Hive.openBox<Producto>('productos');
     productosBox.add(producto);
