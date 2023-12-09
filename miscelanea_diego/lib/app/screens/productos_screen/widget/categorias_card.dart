@@ -9,9 +9,16 @@ class CategoriaCard {
       child: Column(
         children: [
           const SizedBox(height: 10),
-          const Text(
-            'Seleccione una categoria',
-            style: TextStyle(fontSize: 20),
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () => Navigator.of(context).pop(1),
+                  icon: const Icon(Icons.arrow_back)),
+              const Text(
+                'Seleccione una categoria',
+                style: TextStyle(fontSize: 20),
+              ),
+            ],
           ),
           Expanded(
               child: ListView.builder(

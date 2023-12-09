@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miscelanea_diego/app/data/model/Productos/producto.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
+import 'package:miscelanea_diego/app/global_widgets/global_widgets.dart';
 import 'package:miscelanea_diego/app/global_widgets/menu.dart';
 import 'package:miscelanea_diego/app/screens/productos_screen/categoria_controller.dart';
 import 'package:miscelanea_diego/app/screens/productos_screen/categoria_screen.dart';
@@ -79,26 +80,17 @@ class _ProductosScreenState extends State<ProductosScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Expanded(
-                      child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 8.0,
-                          mainAxisSpacing: 8.0,
-                        ),
-                        itemCount: _productos.length,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Text(_productos[index].nombre),
-                              ),
-                            ),
-                          );
-                        },
+                      child: SingleChildScrollView(
+                        child: Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 40,
+                            runSpacing: 20,
+                            children: _productos.map((e) {
+                              return ProductoView(producto: e);
+                            }).toList()),
                       ),
                     ),
                   ],
@@ -149,6 +141,65 @@ class _ProductosScreenState extends State<ProductosScreen> {
           ],
         );
       },
+    );
+  }
+}
+
+class ProductoView extends StatelessWidget {
+  const ProductoView({super.key, required this.producto});
+
+  final Producto producto;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 170,
+      width: 170,
+      child: Card(
+        color: GlobalWidgets.getColorFondo(producto.categoria.color).color,
+        child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 15),
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              producto.sku,
+                              style: const TextStyle(fontSize: 8),
+                            ),
+                            Text(
+                              producto.nombre,
+                              style: const TextStyle(fontSize: 15),
+                            ),
+                            Text(
+                              '\$ ${producto.precio}',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                            Text(
+                              producto.categoria.nombre,
+                              style: const TextStyle(fontSize: 8),
+                            ),
+                          ],
+                        ),
+                      )),
+                ))
+              ],
+            )),
+      ),
     );
   }
 }
