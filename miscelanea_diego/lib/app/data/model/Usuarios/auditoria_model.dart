@@ -9,6 +9,6 @@ class AuditoriaModel {
 
   Future<List<Auditoria>> obtenerTodasAuditorias() async {
     final auditoriaBox = await Hive.openBox<Auditoria>('auditorias');
-    return auditoriaBox.values.toList();
+    return auditoriaBox.values.toList().reversed.toList();
   }
 }

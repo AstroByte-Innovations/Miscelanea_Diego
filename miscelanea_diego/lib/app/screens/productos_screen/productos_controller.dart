@@ -25,6 +25,28 @@ class ProductoController {
     return await modelo.obtenerTodosProductos();
   }
 
+  void actualizarProducto(int key, Producto producto) async {
+    modelo.actualizarProducto(producto, key);
+    agregarAuditoria(Auditoria(
+        usuario: usuario,
+        tipoRegistro: 'Producto',
+        accion: 'Actualizacion',
+        fecha: DateTime.now(),
+        registro: "${producto.sku} ${producto.nombre}",
+        descripcion: producto.toString()));
+  }
+
+  void eliminarProducto(int key, Producto producto) async {
+    modelo.eliminarProducto(key);
+    agregarAuditoria(Auditoria(
+        usuario: usuario,
+        tipoRegistro: 'Producto',
+        accion: 'Eliminacion',
+        fecha: DateTime.now(),
+        registro: "${producto.sku} ${producto.nombre}",
+        descripcion: producto.toString()));
+  }
+
   void agregarAuditoria(Auditoria auditoria) {
     modeloAu.agregarAuditoria(auditoria);
   }

@@ -39,7 +39,10 @@ class _CategoriaScreenState extends State<CategoriaScreen> {
               color:
                   GlobalWidgets.getColorFondo(_categorias[index].color).color,
               child: ListTile(
-                title: Text(_categorias[index].nombre),
+                title: Text(
+                  _categorias[index].nombre,
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                ),
                 onTap: () => Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
                   return CategoriaEdit(
