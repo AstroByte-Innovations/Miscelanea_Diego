@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/screens/auditoria_screen/auditoria_screen.dart';
+import 'package:miscelanea_diego/app/screens/inventario_screen/inventario_screen.dart';
 import 'package:miscelanea_diego/app/screens/login/login.dart';
 import 'package:miscelanea_diego/app/screens/pos_screen/pos_screen.dart';
 import 'package:miscelanea_diego/app/screens/productos_screen/categoria_controller.dart';
@@ -86,7 +87,17 @@ class Menu {
               : Container(),
           (usuario.role.inventario)
               ? ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (c) {
+                      return InventarioScreen(
+                        usuario: usuario,
+                        controller: ProductoController(usuario: usuario),
+                        controllerCategoria:
+                            CategoriaController(usuario: usuario),
+                      );
+                    }));
+                  },
                   leading: const Icon(Icons.inventory,
                       size: 25.0, color: Colors.white),
                   title: const Text("Inventario"),
