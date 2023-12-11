@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:miscelanea_diego/app/core/theme/app_theme.dart';
 import 'package:miscelanea_diego/app/data/model/Productos/categoria.dart';
+import 'package:miscelanea_diego/app/data/model/Productos/inventario_movimiento.dart';
 import 'package:miscelanea_diego/app/data/model/Productos/producto.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/auditoria.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/role.dart';
@@ -15,6 +16,7 @@ Future<void> main() async {
   Hive.registerAdapter(AuditoriaAdapter());
   Hive.registerAdapter(CategoriaAdapter());
   Hive.registerAdapter(ProductoAdapter());
+  Hive.registerAdapter(MovimientoAlmacenAdapter());
   runApp(const MyApp());
 }
 

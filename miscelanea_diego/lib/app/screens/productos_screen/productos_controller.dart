@@ -1,3 +1,5 @@
+import 'package:miscelanea_diego/app/data/model/Productos/inventario_movimiento.dart';
+import 'package:miscelanea_diego/app/data/model/Productos/inventario_movimiento_model.dart';
 import 'package:miscelanea_diego/app/data/model/Productos/producto.dart';
 import 'package:miscelanea_diego/app/data/model/Productos/producto_model.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/auditoria.dart';
@@ -6,12 +8,14 @@ import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 
 class ProductoController {
   ProductoModel modelo = ProductoModel();
+  InventarioMovimientoModel modeloIM = InventarioMovimientoModel();
   final AuditoriaModel modeloAu = AuditoriaModel();
   Usuario usuario;
   ProductoController({required this.usuario});
 
   void creatProducto(Producto producto) async {
     await modelo.agregarProducto(producto);
+
     agregarAuditoria(Auditoria(
         usuario: usuario,
         tipoRegistro: 'Producto',
@@ -19,6 +23,16 @@ class ProductoController {
         fecha: DateTime.now(),
         registro: "${producto.sku} ${producto.nombre}",
         descripcion: producto.toString()));
+
+    modeloIM.agregarMovimiento(MovimientoAlmacen(
+        sku: producto.sku,
+        nombre: producto.nombre,
+        fecha: DateTime.now(),
+        tipo: 1,
+        cantidadA: 0,
+        cantidad: producto.cantidad,
+        cantidadF: producto.cantidad,
+        usuario: usuario));
   }
 
   Future<List<Producto>> cargarProductos() async {

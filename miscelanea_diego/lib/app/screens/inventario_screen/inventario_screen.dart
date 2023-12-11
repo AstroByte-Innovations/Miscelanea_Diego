@@ -4,6 +4,7 @@ import 'package:miscelanea_diego/app/data/model/Productos/producto.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/global_widgets/global_widgets.dart';
 import 'package:miscelanea_diego/app/global_widgets/menu.dart';
+import 'package:miscelanea_diego/app/screens/inventario_screen/inventario_controller.dart';
 import 'package:miscelanea_diego/app/screens/inventario_screen/widgets/inventario_producto_edit.dart';
 import 'package:miscelanea_diego/app/screens/productos_screen/categoria_controller.dart';
 import 'package:miscelanea_diego/app/screens/productos_screen/productos_controller.dart';
@@ -14,10 +15,12 @@ class InventarioScreen extends StatefulWidget {
       {super.key,
       required this.usuario,
       required this.controller,
-      required this.controllerCategoria});
+      required this.controllerCategoria,
+      required this.controllerInvetario});
   final Usuario usuario;
   final ProductoController controller;
   final CategoriaController controllerCategoria;
+  final InventarioController controllerInvetario;
 
   @override
   State<InventarioScreen> createState() => _InventarioScreenState();
@@ -125,7 +128,12 @@ class _InventarioScreenState extends State<InventarioScreen> {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (c) {
                                 return InventarioProductoEdit(
-                                    producto: e, controller: widget.controller);
+                                  usuario: widget.usuario,
+                                  producto: e,
+                                  controller: widget.controller,
+                                  controllerInventario:
+                                      widget.controllerInvetario,
+                                );
                               }));
                             },
                           );

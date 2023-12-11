@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/screens/auditoria_screen/auditoria_screen.dart';
+import 'package:miscelanea_diego/app/screens/inventario_screen/inventario_controller.dart';
 import 'package:miscelanea_diego/app/screens/inventario_screen/inventario_screen.dart';
 import 'package:miscelanea_diego/app/screens/login/login.dart';
 import 'package:miscelanea_diego/app/screens/pos_screen/pos_screen.dart';
@@ -95,6 +96,8 @@ class Menu {
                         controller: ProductoController(usuario: usuario),
                         controllerCategoria:
                             CategoriaController(usuario: usuario),
+                        controllerInvetario:
+                            InventarioController(usuario: usuario),
                       );
                     }));
                   },
