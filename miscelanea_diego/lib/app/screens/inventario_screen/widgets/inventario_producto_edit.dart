@@ -123,6 +123,13 @@ class _InventarioProductoEditState extends State<InventarioProductoEdit> {
                                       double cantidad = double.parse(value);
                                       double cantidadF = cantidadA - cantidad;
                                       widget.producto.cantidad = cantidadF;
+                                      if (widget.producto.cantidad < 0) {
+                                        widget.producto.estado = 0;
+                                      } else if (widget.producto.cantidad > 5) {
+                                        widget.producto.estado = 2;
+                                      } else {
+                                        widget.producto.estado = 1;
+                                      }
                                       widget.controller.actualizarProducto(
                                           widget.producto.key, widget.producto);
                                       widget.controllerInventario
@@ -184,6 +191,13 @@ class _InventarioProductoEditState extends State<InventarioProductoEdit> {
                                       double cantidad = double.parse(value);
                                       double cantidadF = cantidadA + cantidad;
                                       widget.producto.cantidad = cantidadF;
+                                      if (widget.producto.cantidad < 0) {
+                                        widget.producto.estado = 0;
+                                      } else if (widget.producto.cantidad > 5) {
+                                        widget.producto.estado = 2;
+                                      } else {
+                                        widget.producto.estado = 1;
+                                      }
                                       widget.controller.actualizarProducto(
                                           widget.producto.key, widget.producto);
                                       widget.controllerInventario
@@ -272,7 +286,35 @@ class _InventarioProductoEditState extends State<InventarioProductoEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (_formKey.currentState!.validate()) {}
+          if (_formKey.currentState!.validate()) {
+            double cantidadA = widget.producto.cantidad;
+            double cantidad =
+                double.parse(_cantidadController.text) - cantidadA;
+            if (cantidad != 0) {
+              double cantidadF = double.parse(_cantidadController.text);
+              widget.producto.cantidad = cantidadF;
+              if (widget.producto.cantidad < 0) {
+                widget.producto.estado = 0;
+              } else if (widget.producto.cantidad > 5) {
+                widget.producto.estado = 2;
+              } else {
+                widget.producto.estado = 1;
+              }
+              widget.controller
+                  .actualizarProducto(widget.producto.key, widget.producto);
+
+              widget.controllerInventario.agregarMovimiento(MovimientoAlmacen(
+                  sku: widget.producto.sku,
+                  nombre: widget.producto.nombre,
+                  fecha: DateTime.now(),
+                  tipo: cantidad > 0 ? 1 : 0,
+                  cantidadA: cantidadA,
+                  cantidad: cantidad.abs(),
+                  cantidadF: cantidadF,
+                  usuario: widget.usuario));
+            }
+            Navigator.of(context).pop(1);
+          }
         },
         shape: const CircleBorder(),
         child: const Icon(

@@ -42,6 +42,17 @@ class Producto extends HiveObject {
 
   @override
   String toString() {
-    return 'Producto{sku: $sku, nombre: $nombre, precio: $precio, estado: $estado, tipo: $tipo, descrcipcion: $descrcipcion, categoria: $categoria, fechaCreacion: $fechaCreacion, fechaActualizacion: $fechaActualizacion}';
+    return 'Producto {\n'
+        '  SKU: $sku,\n'
+        '  Nombre: $nombre,\n'
+        '  Precio: $precio,\n'
+        '  Estado: $estado (${estado == 0 ? 'Agotado' : (estado == 1 ? 'Warning' : 'Disponible')}),\n'
+        '  Tipo: $tipo (${tipo == 1 ? 'Pieza' : 'Granel'}),\n'
+        '  Descripción: $descrcipcion,\n'
+        '  Categoría: $categoria,\n'
+        '  Fecha de Creación: $fechaCreacion,\n'
+        '  Fecha de Actualización: $fechaActualizacion,\n'
+        '  Cantidad: $cantidad\n'
+        '}';
   }
 }

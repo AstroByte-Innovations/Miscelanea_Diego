@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:miscelanea_diego/app/data/model/Productos/categoria.dart';
 import 'package:miscelanea_diego/app/data/model/Productos/producto.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
@@ -104,8 +105,24 @@ class _ProductoEditState extends State<ProductoEdit> {
                   ),
                   TextFormField(
                     controller: _skuController,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(), label: Text('SKU *')),
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        icon: IconButton(
+                            icon: const Icon(Icons.barcode_reader),
+                            onPressed: () async {
+                              String barCode =
+                                  await FlutterBarcodeScanner.scanBarcode(
+                                      '#ff6666',
+                                      'Cancelar',
+                                      true,
+                                      ScanMode.BARCODE);
+                              if (barCode != '-1') {
+                                _skuController.text = barCode;
+                                setState(() {});
+                              }
+                            }),
+                        border: const OutlineInputBorder(),
+                        label: const Text('SKU *')),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor, ingresa un SKU válido.';

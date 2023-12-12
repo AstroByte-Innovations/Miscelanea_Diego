@@ -134,7 +134,12 @@ class _InventarioScreenState extends State<InventarioScreen> {
                                   controllerInventario:
                                       widget.controllerInvetario,
                                 );
-                              }));
+                              })).then((value) {
+                                {
+                                  _cargar();
+                                  _cargarCategorias();
+                                }
+                              });
                             },
                           );
                         }).toList()),

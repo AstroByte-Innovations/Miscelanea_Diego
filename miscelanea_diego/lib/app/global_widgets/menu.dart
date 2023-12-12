@@ -4,11 +4,14 @@ import 'package:miscelanea_diego/app/screens/auditoria_screen/auditoria_screen.d
 import 'package:miscelanea_diego/app/screens/inventario_screen/inventario_controller.dart';
 import 'package:miscelanea_diego/app/screens/inventario_screen/inventario_screen.dart';
 import 'package:miscelanea_diego/app/screens/login/login.dart';
+import 'package:miscelanea_diego/app/screens/pos_screen/pos_controller.dart';
 import 'package:miscelanea_diego/app/screens/pos_screen/pos_screen.dart';
 import 'package:miscelanea_diego/app/screens/productos_screen/categoria_controller.dart';
 import 'package:miscelanea_diego/app/screens/productos_screen/productos_controller.dart';
 import 'package:miscelanea_diego/app/screens/productos_screen/productos_screen.dart';
 import 'package:miscelanea_diego/app/screens/usuarios_screen/usuarios_screen.dart';
+import 'package:miscelanea_diego/app/screens/ventas_screen/ventas_controller.dart';
+import 'package:miscelanea_diego/app/screens/ventas_screen/ventas_screen.dart';
 
 class Menu {
   static Widget buildMenu(BuildContext context, Usuario usuario) {
@@ -55,6 +58,9 @@ class Menu {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (c) {
                       return POSScreen(
+                        controllerProducto:
+                            ProductoController(usuario: usuario),
+                        controller: PosController(usuario: usuario),
                         usuario: usuario,
                       );
                     }));
@@ -122,7 +128,15 @@ class Menu {
               : Container(),
           (usuario.role.ventas)
               ? ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushReplacement(MaterialPageRoute(builder: (c) {
+                      return VentasScreen(
+                        controller: VentasController(),
+                        usuario: usuario,
+                      );
+                    }));
+                  },
                   leading:
                       const Icon(Icons.sell, size: 25.0, color: Colors.white),
                   title: const Text("Ventas"),

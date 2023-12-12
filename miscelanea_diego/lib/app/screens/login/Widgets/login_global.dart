@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/role.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/global_widgets/global_widgets.dart';
+import 'package:miscelanea_diego/app/screens/pos_screen/pos_controller.dart';
 import 'package:miscelanea_diego/app/screens/pos_screen/pos_screen.dart';
+import 'package:miscelanea_diego/app/screens/productos_screen/productos_controller.dart';
 
 class LoginGlobal extends StatefulWidget {
   const LoginGlobal({super.key});
@@ -25,6 +27,7 @@ class _LoginGlobalState extends State<LoginGlobal> {
           child: Column(
             children: [
               TextFormField(
+                autofocus: true,
                 obscureText: true,
                 decoration: const InputDecoration(
                   labelText: 'Clave de Administrador',
@@ -38,6 +41,40 @@ class _LoginGlobalState extends State<LoginGlobal> {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (c) {
                       return POSScreen(
+                        controllerProducto: ProductoController(
+                          usuario: Usuario(
+                              nombreUsuario: 'Adminstrador',
+                              pin: '000000',
+                              nombre: 'Administrador',
+                              apellidoPaterno: 'Administrador',
+                              apellidoMaterno: 'Administrador',
+                              role: Role(
+                                  puntoVenta: true,
+                                  productos: true,
+                                  inventario: true,
+                                  reportes: true,
+                                  ventas: true,
+                                  usuarios: true,
+                                  auditoria: true,
+                                  configuracion: true)),
+                        ),
+                        controller: PosController(
+                          usuario: Usuario(
+                              nombreUsuario: 'Adminstrador',
+                              pin: '000000',
+                              nombre: 'Administrador',
+                              apellidoPaterno: 'Administrador',
+                              apellidoMaterno: 'Administrador',
+                              role: Role(
+                                  puntoVenta: true,
+                                  productos: true,
+                                  inventario: true,
+                                  reportes: true,
+                                  ventas: true,
+                                  usuarios: true,
+                                  auditoria: true,
+                                  configuracion: true)),
+                        ),
                         usuario: Usuario(
                             nombreUsuario: 'Adminstrador',
                             pin: '000000',

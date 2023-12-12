@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:miscelanea_diego/app/data/model/Usuarios/usuario.dart';
 import 'package:miscelanea_diego/app/global_widgets/global_widgets.dart';
+import 'package:miscelanea_diego/app/screens/pos_screen/pos_controller.dart';
 import 'package:miscelanea_diego/app/screens/pos_screen/pos_screen.dart';
+import 'package:miscelanea_diego/app/screens/productos_screen/productos_controller.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class LoginUser extends StatefulWidget {
@@ -70,6 +72,7 @@ class _LoginUserState extends State<LoginUser> {
                   ),
                   const SizedBox(height: 10),
                   PinCodeTextField(
+                    autoFocus: true,
                     controller: controller,
                     appContext: context,
                     pastedTextStyle: TextStyle(
@@ -111,6 +114,10 @@ class _LoginUserState extends State<LoginUser> {
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (c) {
                               return POSScreen(
+                                controllerProducto:
+                                    ProductoController(usuario: widget.usuario),
+                                controller:
+                                    PosController(usuario: widget.usuario),
                                 usuario: widget.usuario,
                               );
                             }));
